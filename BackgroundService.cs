@@ -38,7 +38,7 @@ public class ConsumerRabbitMQbg : BackgroundService
         _channel = _connection.CreateModel();
 
         //_channel.ExchangeDeclare("demo.exchange", ExchangeType.Topic);
-        _channel.QueueDeclare("greetings", false, false, false, null);
+        _channel.QueueDeclare("TaskQueue", false, false, false, null);
         // _channel.QueueBind("demo.queue.log", "demo.exchange", "demo.queue.*", null);
         // _channel.BasicQos(0, 1, false);
 
@@ -65,7 +65,7 @@ public class ConsumerRabbitMQbg : BackgroundService
         consumer.Unregistered += OnConsumerUnregistered;
         consumer.ConsumerCancelled += OnConsumerConsumerCancelled;
 
-        _channel.BasicConsume("greetings", false, consumer);
+        _channel.BasicConsume("TaskQueue", false, consumer);
         return Task.CompletedTask;
     }
 
